@@ -39,7 +39,7 @@ const play = (function () {
     const playerXName = document.getElementById('player-x').value;
     const playerOName = document.getElementById('player-o').value;
     playerX = playerXName ? createPlayer(playerXName, 'X') : undefined;
-    playerO = playerXName ? createPlayer(playerOName, 'X') : undefined;
+    playerO = playerXName ? createPlayer(playerOName, 'O') : undefined;
     document.getElementById('player-x').value = '';
     document.getElementById('player-o').value = '';
     display.displayPlayerNames(playerX.playerName, playerO.playerName);
@@ -51,17 +51,16 @@ const play = (function () {
   const startButton = document.querySelector('.start-button');
   let gameActive;
   startButton.addEventListener('click', () => {
+    if (startButton.textContent === 'Restart') {
+      display.reset();
+    }
+
     if (playerX && playerO) {
       gameActive = true;
-      startButton.textContent = 'Restart'
+      startButton.textContent = 'Restart';
       resultElement.textContent = 'Game Start!';
     } else {
-      resultElement.textContent = 'Please insert player names'
-    }
-    if (startButton.textContent === 'Restart') {
-      startButton.addEventListener('click', () => {
-        display.reset();
-      })
+      resultElement.textContent = 'Please insert player names';
     }
   });
   if (!gameActive) {
@@ -120,6 +119,7 @@ const display = (function () {
     for (i = 0; i < gameboard.gameboardArray.length; i++) {
       gameboard.gameboardArray[i] = '';
     }
+    playerXTurn = true;
     renderGameboard();
   }
 
@@ -127,11 +127,11 @@ const display = (function () {
     const playerNamesDisplay = document.querySelector('.player-names-display');
     playerNamesDisplay.innerHTML = '';
     playerNamesDisplay.innerHTML += `
-    <p>Player X:${playerX}</p>
-    <p>Player O:${playerO}</p>
+    <p>Player X: ${playerX}</p>
+    <p>Player O: ${playerO}</p>
     `
   }
-  return { renderGameboard, reset, displayPlayerNames}
+  return { renderGameboard, reset, displayPlayerNames }
 })();
 
 display.renderGameboard();
