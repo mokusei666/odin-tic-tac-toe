@@ -19,7 +19,6 @@ const gameboard = (function () {
           playerXTurn = true;
           play.checkWin();
         }
-        console.log(gameboardArray);
         display.renderGameboard();
       })
     })
@@ -46,16 +45,14 @@ const play = (function () {
     [2, 4, 6]
   ];
   const checkWin = function () {
-    let result;
+    const resultElement = document.querySelector('.result');
     const allExist = gameboardArray.every(cell => cell !== '');
     for (const [a, b, c] of winCondition)
       if (gameboardArray[a] && gameboardArray[a] === gameboardArray[b] && gameboardArray[a] === gameboardArray[c]) {
         if (gameboardArray[a] === 'X') {
-          console.log(`Player ${playerX.marker}: ${playerX.playerName}  Wins`);
-          display.reset();
+          resultElement.textContent = `Player ${playerX.marker}: ${playerX.playerName}  Wins`;
         } else if (gameboardArray[a] === 'O') {
-          console.log(`Player ${playerO.marker}: ${playerO.playerName}  Wins`);
-          display.reset();
+          resultElement.textContent = `Player ${playerO.marker}: ${playerO.playerName}  Wins`;
         }
       }
     if (allExist) {
