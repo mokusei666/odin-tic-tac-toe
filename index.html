@@ -1,15 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <link rel="stylesheet" href="style.css">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Odin Tic Tac Toe</title>
 </head>
+
 <body>
+  
   <button class="start-button">Start</button>
+  <div class="main_content">
+    <form action="#" autocomplete="off">
+    <fieldset>
+      <label for="player-x">
+        Player X Name
+      </label>
+      <input type="text" id="player-x" required>
+      <label for="player-x">
+        Player O Name
+      </label>
+      <input type="text" id="player-o" required>
+    </fieldset>
+    <fieldset>
+      <button class="submit-btn" type="submit">Submit</button>
+    </fieldset>
+    <fieldset class="player-names-display"></fieldset>
+  </form>
   <div id="display"></div>
+  </div>
+  
   <div class="result"></div>
   <script src="javascript.js"></script>
 </body>
+
 </html>

@@ -11,6 +11,10 @@ body {
   justify-content: center;
 }
 
+.main_content {
+  display: flex;
+}
+
 #display {
   width: 600px;
   height: 600px;
@@ -34,11 +38,14 @@ body {
 button {
   color: white;
   cursor: pointer;
-  font-size: 2rem;
+  border-radius: 40px;
   padding: 10px 20px;
+} 
+
+.start-button {
+  font-size: 2rem;
   margin-bottom: 2em;
   border: 3px solid rgb(255, 77, 107);
-  border-radius: 40px;
   font-weight: 700;
   background-color: rgba(87, 153, 252, 0.61);
   border-style: dashed;
@@ -48,4 +55,42 @@ button {
   color: rgb(247, 48, 81);
   margin-top: 1em;
   font-size: 3rem;
+}
+
+form {
+  margin-bottom: 3em;
+  white-space: nowrap;
+  width: 300px;
+}
+
+fieldset {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  border: 3px solid lightblue
+}
+
+.submit-btn {
+  color: rgb(255, 255, 255);
+  border: none;
+  background-color: rgb(36, 110, 36);
+  font-size: 1.25rem;
+}
+
+label {
+  color: white;
+}
+
+input {
+  border: none;
+  padding: 5px 15px;
+  font-size: 1.25rem;
+  width: 90%;
+  outline: none;
+}
+
+.player-names-display {
+  border: none;
+  font-size: 2rem;
+  color: white;
 }
