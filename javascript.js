@@ -13,13 +13,10 @@ const gameboard = (function () {
         const index = cell.dataset.index;
         if (gameActive && playerXTurn && gameboard.gameboardArray[index] === '') {
           gameboard.gameboardArray[index] = 'X';
-          console.log(gameboardArray);
-
           playerXTurn = false;
           play.checkWin();
         } else if (gameActive && !playerXTurn && gameboard.gameboardArray[index] === '') {
           gameboard.gameboardArray[index] = 'O';
-          console.log(gameboardArray);
           playerXTurn = true;
           play.checkWin();
         }
@@ -35,14 +32,32 @@ function createPlayer(playerName, marker) {
 }
 
 const play = (function () {
+  let playerX;
+  let playerO;
+  document.querySelector('.submit-btn').addEventListener('click', (event) => {
+    event.preventDefault();
+    const playerXName = document.getElementById('player-x').value;
+    const playerOName = document.getElementById('player-o').value;
+    playerX = playerXName ? createPlayer(playerXName, 'X') : undefined;
+    playerO = playerXName ? createPlayer(playerOName, 'X') : undefined;
+    document.getElementById('player-x').value = '';
+    document.getElementById('player-o').value = '';
+    display.displayPlayerNames(playerX.playerName, playerO.playerName);
+  });
+
+
   const gameboardArray = gameboard.gameboardArray;
   const resultElement = document.querySelector('.result');
-  let gameActive;
   const startButton = document.querySelector('.start-button');
+  let gameActive;
   startButton.addEventListener('click', () => {
-    gameActive = true;
-    startButton.textContent = 'Restart'
-    resultElement.textContent = 'Game Start!';
+    if (playerX && playerO) {
+      gameActive = true;
+      startButton.textContent = 'Restart'
+      resultElement.textContent = 'Game Start!';
+    } else {
+      resultElement.textContent = 'Please insert player names'
+    }
     if (startButton.textContent === 'Restart') {
       startButton.addEventListener('click', () => {
         display.reset();
@@ -53,8 +68,6 @@ const play = (function () {
     resultElement.textContent = 'Press Start!'
   }
 
-  const playerX = createPlayer('Cameron', 'X');
-  const playerO = createPlayer('Brandon', 'O');
   const winCondition = [
     [0, 1, 2],
     [3, 4, 5],
@@ -71,14 +84,14 @@ const play = (function () {
       if (gameboardArray[a] && gameboardArray[a] === gameboardArray[b] && gameboardArray[a] === gameboardArray[c]) {
         if (gameboardArray[a] === 'X') {
           resultElement.textContent = `Player ${playerX.marker}: ${playerX.playerName}  Wins`;
-          gameActive = false;
         } else if (gameboardArray[a] === 'O') {
           resultElement.textContent = `Player ${playerO.marker}: ${playerO.playerName}  Wins`;
-          gameActive = false;
         }
+        gameActive = false;
+        return;
       }
     if (allExist) {
-      return 'Tie'
+      resultElement.textContent = `Tie`;
     }
   }
   const isGameActive = function () {
@@ -86,7 +99,7 @@ const play = (function () {
       return gameActive;
     }
   }
-  return { checkWin, playerX, playerO, isGameActive }
+  return { checkWin, isGameActive }
 })();
 
 const display = (function () {
@@ -109,7 +122,16 @@ const display = (function () {
     }
     renderGameboard();
   }
-  return { renderGameboard, reset }
+
+  const displayPlayerNames = function (playerX, playerO) {
+    const playerNamesDisplay = document.querySelector('.player-names-display');
+    playerNamesDisplay.innerHTML = '';
+    playerNamesDisplay.innerHTML += `
+    <p>Player X:${playerX}</p>
+    <p>Player O:${playerO}</p>
+    `
+  }
+  return { renderGameboard, reset, displayPlayerNames}
 })();
 
 display.renderGameboard();
