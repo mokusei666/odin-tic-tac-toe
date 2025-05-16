@@ -12,8 +12,8 @@ body {
 }
 
 #display {
-  width: 700px;
-  height: 700px;
+  width: 600px;
+  height: 600px;
   display: grid;
   grid-template: repeat(3, 1fr) / repeat(3, 1fr);
   border: 3px solid pink;
@@ -42,4 +42,10 @@ button {
   font-weight: 700;
   background-color: rgba(87, 153, 252, 0.61);
   border-style: dashed;
+}
+
+.result {
+  color: rgb(247, 48, 81);
+  margin-top: 1em;
+  font-size: 3rem;
 }
